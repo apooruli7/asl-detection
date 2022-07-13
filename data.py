@@ -27,7 +27,16 @@ while True:
             wCalculated = math.ceil(k*w)
             imgResize = cv2.resize(imgCrop, (wCalculated, 300))
             imgResizeShape = imgResize.shape
-            imgWhite[0:imgResizeShape[0], 0:imgResizeShape[1]] = imgResize
+            widthGap = math.ceil((300 - wCalculated) / 2) # making a gap to center the image in the white overlay
+            imgWhite[:, widthGap: wCalculated + widthGap] = imgResize
+
+        else:
+            k = 300 / w
+            hCalculated = math.ceil(k*h)
+            imgResize = cv2.resize(imgCrop, (300, hCalculated))
+            imgResizeShape = imgResize.shape
+            heightGap = math.ceil((300 - hCalculated) / 2)
+            imgWhite[heightGap: hCalculated + heightGap, :] = imgResize
 
 
         cv2.imshow("Crop Image", imgCrop)
